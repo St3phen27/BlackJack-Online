@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Blackjack Online</title>
+  <link rel="stylesheet" href="../BlackJack/css/style.css">
+</head>
+<body>
+  <h1>Blackjack</h1>
+  <div id="game">
+    <div id="dealer" class="section">
+      <h2>Crupier</h2>
+      <div class="cards" id="dealerCards"></div>
+      <p>Suma: <span id="dealerSum">0</span></p>
+    </div>
+    <div id="player" class="section">
+      <h2>Jugador</h2>
+      <div class="cards" id="playerCards"></div>
+      <p>Suma: <span id="playerSum">0</span></p>
+    </div>
+    <div id="controls" class="section">
+      <button id="btnPedir">Pedir</button>
+      <button id="btnPlantarse">Plantarse</button>
+      <button id="btnNueva" style="display: none;">Nueva Partida</button>
+    </div>
+    <p id="resultado"></p>
+  </div>
+  <script src="../BlackJack/js/script.js"></script>
+</body>
+</html>
