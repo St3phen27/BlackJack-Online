@@ -127,14 +127,14 @@
        cardDiv.textContent = hiddenCard.value + hiddenCard.suit;
        dealerCardsDiv.appendChild(cardDiv);
      }
-     // Mostrar la suma total del dealer (incluyendo la carta oculta)
+
      let dealerTotal = calculateSum(dealerCards);
      if (hiddenCard) dealerTotal += calculateSum([hiddenCard]);
      document.getElementById('dealerSum').textContent = dealerTotal;
    }
  }
 
- // Guardar el estado del juego en localStorage
+
  function saveGame() {
    const gameState = {
      deck,
@@ -148,7 +148,6 @@
    localStorage.setItem("blackjackGame", JSON.stringify(gameState));
  }
 
- // Cargar el estado del juego desde localStorage
  function loadGame() {
    const savedState = localStorage.getItem("blackjackGame");
    if (savedState) {
@@ -162,7 +161,7 @@
      result = state.result;
      updateUI();
      document.getElementById('resultado').textContent = result;
-     // Si la partida terminó, habilitamos el botón de nueva partida y deshabilitamos las opciones
+
      if (gameOver) {
        document.getElementById('btnPedir').disabled = true;
        document.getElementById('btnPlantarse').disabled = true;
@@ -173,21 +172,21 @@
    }
  }
 
- // Función para la jugada del dealer (una vez que el jugador se planta)
+
  function dealerTurn() {
-   // Revelar la carta oculta
+
    dealerCards.push(hiddenCard);
    hiddenCard = null;
    updateUI();
 
-   // El dealer sigue pidiendo cartas mientras su suma sea menor a 17
+
    while (calculateSum(dealerCards) < 17) {
      dealerCards.push(drawCard());
    }
    finishGame();
  }
 
- // Determinar el resultado de la partida y finalizar el juego
+
  function finishGame() {
    const playerTotal = calculateSum(playerCards);
    const dealerTotal = calculateSum(dealerCards);
@@ -217,15 +216,15 @@
    saveGame();
  }
 
- // Eventos de los botones
+ 
  document.getElementById('btnPedir').addEventListener('click', function() {
    if (!gameOver && playerTurn) {
      playerCards.push(drawCard());
      if (calculateSum(playerCards) > 21) {
-       // Si el jugador se pasa, termina la partida y se revela la carta oculta
+
        gameOver = true;
        result = "Te pasaste, perdiste.";
-       // Revelamos la carta oculta para mostrar la mano completa del dealer
+
        dealerCards.push(hiddenCard);
        hiddenCard = null;
        document.getElementById('resultado').textContent = result;
@@ -274,7 +273,7 @@
    saveGame();
  });
 
- // Al cargar la página, se intenta cargar el estado guardado o se inicia una nueva partida
+
  document.addEventListener('DOMContentLoaded', function() {
    loadGame();
  });
