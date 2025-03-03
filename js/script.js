@@ -1,13 +1,13 @@
- // Variables globales del juego
+ 
  var deck = [];
  var playerCards = [];
  var dealerCards = [];
- var hiddenCard = null; // Carta oculta del dealer
+ var hiddenCard = null; 
  var gameOver = false;
  var playerTurn = true;
  var result = "";
 
- // Función para crear la baraja
+ 
  function createDeck() {
    const suits = ['♥', '♦', '♣', '♠'];
    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -28,7 +28,7 @@
    return newDeck;
  }
 
- // Función para barajar la baraja
+ 
  function shuffleDeck(array) {
    for (let i = array.length - 1; i > 0; i--) {
      const j = Math.floor(Math.random() * (i + 1));
@@ -37,7 +37,7 @@
    return array;
  }
 
- // Función para calcular la suma de puntos de un conjunto de cartas (considera Aces como 1 si es necesario)
+ 
  function calculateSum(cards) {
    let sum = 0;
    let aces = 0;
@@ -45,7 +45,7 @@
      sum += card.points;
      if (card.value === 'A') aces++;
    });
-   // Si la suma supera 21 y hay Ases, restar 10 por cada uno según sea necesario
+   
    while (sum > 21 && aces > 0) {
      sum -= 10;
      aces--;
@@ -53,12 +53,12 @@
    return sum;
  }
 
- // Función para sacar una carta de la baraja
+ 
  function drawCard() {
    return deck.pop();
  }
 
- // Función para inicializar una nueva partida
+
  function newGame() {
    deck = shuffleDeck(createDeck());
    playerCards = [];
@@ -68,11 +68,11 @@
    playerTurn = true;
    result = "";
 
-   // Repartir cartas iniciales
+   
    playerCards.push(drawCard());
    playerCards.push(drawCard());
    dealerCards.push(drawCard());
-   hiddenCard = drawCard(); // Esta carta se mantendrá oculta hasta que el jugador se plante
+   hiddenCard = drawCard(); 
 
    updateUI();
    saveGame();
@@ -82,14 +82,14 @@
    document.getElementById('btnNueva').style.display = "none";
  }
 
- // Función para actualizar la interfaz
+ 
  function updateUI() {
    const playerCardsDiv = document.getElementById('playerCards');
    const dealerCardsDiv = document.getElementById('dealerCards');
    playerCardsDiv.innerHTML = "";
    dealerCardsDiv.innerHTML = "";
 
-   // Mostrar cartas del jugador
+   
    playerCards.forEach(card => {
      const cardDiv = document.createElement('div');
      cardDiv.className = "card";
@@ -98,8 +98,7 @@
    });
    document.getElementById('playerSum').textContent = calculateSum(playerCards);
 
-   // Mostrar cartas del dealer
-   // Si el juego aún no terminó, se muestra la carta visible y una carta oculta
+   
    if (!gameOver && playerTurn) {
     dealerCards.forEach(card => {
       const cardDiv = document.createElement('div');
@@ -107,15 +106,15 @@
       cardDiv.textContent = card.value + card.suit;
       dealerCardsDiv.appendChild(cardDiv);
     });
-     // Carta oculta
+   
      const hiddenDiv = document.createElement('div');
      hiddenDiv.className = "card";
      hiddenDiv.textContent = "?";
      dealerCardsDiv.appendChild(hiddenDiv);
-     // Suma solo con las cartas visibles
+     
      document.getElementById('dealerSum').textContent = calculateSum(dealerCards);
    } else {
-     // Si el juego terminó o el jugador se plantó, se revelan todas las cartas
+     
      dealerCards.forEach(card => {
        const cardDiv = document.createElement('div');
        cardDiv.className = "card";
